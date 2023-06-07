@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+
 import dj_database_url
+from dj_database_url import *
+from django.conf.global_settings import DATABASES
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -104,8 +107,8 @@ WSGI_APPLICATION = 'heaven_adminpanel.wsgi.application'
 #     }
 # }
 
-DATABASES = dj_database_url.config(
-    default='mysql://root:<password>@localhost:3306/<database>',
+DATABASES['default'] = dj_database_url.config(
+    default='mysql://root:<Marcus1146>@localhost:3306/<heaven>',
 )
 
 DATE_INPUT_FORMATS = ['%m-%d-%Y']
