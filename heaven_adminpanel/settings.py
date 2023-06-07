@@ -96,22 +96,15 @@ WSGI_APPLICATION = 'heaven_adminpanel.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'heaven',
-#         'USER': 'alexey',
-#         'PASSWORD': 'Marcus1146',
-#         'PORT': '3306',
-#     }
-# }
-
 DATABASES = {
-        "default": dj_database_url.config(
-            conn_max_age=600,
-            ssl_require=True,
-        ),
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'heaven',
+        'USER': 'alexey',
+        'PASSWORD': 'Marcus1146',
+        'PORT': '3306',
     }
+}
 
 DATE_INPUT_FORMATS = ['%m-%d-%Y']
 
