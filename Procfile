@@ -1,1 +1,1 @@
-web: gunicorn heaven_site_backend.wsgi
+web: gunicorn heaven_adminpanel.wsgi
