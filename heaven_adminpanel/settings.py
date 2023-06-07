@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-8ub6nh30a+64a1wf$#gv%9xetqm$h546po5@8o)qo(vu03cwn_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['heavensite.herokuapp.com']
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
