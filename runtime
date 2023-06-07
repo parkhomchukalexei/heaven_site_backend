@@ -1,1 +1,2 @@
+heroku config:set DISABLE_COLLECTSTATIC=1
 python-3.10.11
