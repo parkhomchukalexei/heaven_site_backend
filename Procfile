@@ -1,1 +1,1 @@
-web: gunicorn heaven_site_backend.wsgi --log-file
+web: gunicorn heaven_site_backend.wsgi
