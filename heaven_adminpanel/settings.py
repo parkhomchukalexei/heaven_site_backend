@@ -108,7 +108,7 @@ WSGI_APPLICATION = 'heaven_adminpanel.wsgi.application'
 # }
 
 DATABASES['default'] = dj_database_url.config(
-    default='mysql://bfb7351ed66c84:511e9413@eu-cdbr-west-03.cleardb.net/heroku_41e9a6289d2f94b?reconnect=true',
+    default='mysql://bfb7351ed66c84:511e9413@eu-cdbr-west-03.cleardb.net/heroku_41e9a6289d2f94b',
 )
 
 DATE_INPUT_FORMATS = ['%m-%d-%Y']
