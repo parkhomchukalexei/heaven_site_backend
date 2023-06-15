@@ -14,7 +14,7 @@ from users.forms import UserCreationForm
 from users.models import Client, User
 from rest_framework.views import APIView, Response
 from rest_framework import viewsets
-from users.serializers import ClientSerializer, PermissionSerializer, UserSerializer
+from users.serializers import ClientSerializer, PermissionSerializer, UserSerializer, ClientListSerializer
 
 
 class Register(View):
@@ -52,26 +52,26 @@ class CreateClient(LoginRequiredMixin,View):
         return render(request, self.template_name, context)
 
 
-class ClientAPI(viewsets.ModelViewSet):
-
-    serializer_class = ClientSerializer
-
-    def create(self, request, *args, **kwargs):
-        client_data = {'name' : request.data['name'], 'surname': request.data['lastname'],
-                       'login_of': request.data['onlyfanslogin'], 'password_of': request.data['onlyfanspassword'],
-                       'of_email': request.data['onlyfansloginemail'], 'of_password_email': request.data['onlyfanspasswordemail'],
-                       'paid_account': bool(request.data['payedaccount']), 'login_of_paid_account': request.data['onlyfanspayedlogin'],
-                       'password_of_paid_account': request.data['onlyfanspayedpassword'],
-                       'email_of_paid_account': request.data['onlyfanspayedloginemail'],
-                       'password_of_email_paid_account': request.data['onlyfanspayedpasswordemail'],
-                       'photo': request.data['photo'], 'telegram_photos_link': request.data['telegram'],
-                       'managers': list([User.objects.filter(pk= self.request.user.pk).first().pk])}
-
-        serializer = ClientSerializer(data=client_data)
-        if serializer.is_valid():
-            serializer.save()
-            return HttpResponseRedirect('http://127.0.0.1:8000/users/client_list/')
-        else: print(f'{serializer.errors}')
+# class ClientAPI(viewsets.ModelViewSet):
+#
+#     serializer_class = ClientSerializer
+#
+#     def create(self, request, *args, **kwargs):
+#         client_data = {'name' : request.data['name'], 'surname': request.data['lastname'],
+#                        'login_of': request.data['onlyfanslogin'], 'password_of': request.data['onlyfanspassword'],
+#                        'of_email': request.data['onlyfansloginemail'], 'of_password_email': request.data['onlyfanspasswordemail'],
+#                        'paid_account': bool(request.data['payedaccount']), 'login_of_paid_account': request.data['onlyfanspayedlogin'],
+#                        'password_of_paid_account': request.data['onlyfanspayedpassword'],
+#                        'email_of_paid_account': request.data['onlyfanspayedloginemail'],
+#                        'password_of_email_paid_account': request.data['onlyfanspayedpasswordemail'],
+#                        'photo': request.data['photo'], 'telegram_photos_link': request.data['telegram'],
+#                        'managers': list([User.objects.filter(pk= self.request.user.pk).first().pk])}
+#
+#         serializer = ClientSerializer(data=client_data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return HttpResponseRedirect('http://127.0.0.1:8000/users/client_list/')
+#         else: print(f'{serializer.errors}')
 
     @action(methods=['PATCH'], detail=True)
     def set_manager(self, request, pk, *args, **kwargs):
@@ -83,18 +83,18 @@ class ClientAPI(viewsets.ModelViewSet):
 
 
 
-class ClientList(LoginRequiredMixin,View):
-
-    template_name = 'client/client_list.html'
-
-    def get(self, request):
-        user = self.request.user
-        if user.is_superuser:
-            client_list = Client.objects.all()
-        else:
-            client_list = Client.objects.all().filter(managers= user.pk)
-        context = {'form': client_list}
-        return render(request, self.template_name, context)
+# class ClientList(LoginRequiredMixin,View):
+#
+#     template_name = 'client/client_list.html'
+#
+#     def get(self, request):
+#         user = self.request.user
+#         if user.is_superuser:
+#             client_list = Client.objects.all()
+#         else:
+#             client_list = Client.objects.all().filter(managers= user.pk)
+#         context = {'form': client_list}
+#         return render(request, self.template_name, context)
 
 
 class ClientPage(LoginRequiredMixin,View):
@@ -153,3 +153,19 @@ class UserAndClientInfo(APIView):
         client = ClientSerializer(client_list, many=True).data
         response = json.dumps({'operator': operator, 'client': client})
         return Response(data=json.loads(response))
+
+
+class ClientList(APIView):
+
+    def get(self, request):
+        client_list = Client.objects.all()
+        data = ClientListSerializer(client_list, many=True).data
+        response = json.dumps(data)
+        return Response(json.loads(response))
+
+#class ClientAPI(viewsets.ModelViewSet):
+
+
+
+
+
