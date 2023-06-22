@@ -17,7 +17,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Client
-        fields = ["full_name", "id"]
+        fields = ('__all__')
 
 
 
@@ -53,6 +53,7 @@ class ClientListSerializer(serializers.ModelSerializer):
 
     full_name = serializers.SerializerMethodField('get_full_name')
     id = serializers.SerializerMethodField('get_id')
+
 
     class Meta:
         model = Client

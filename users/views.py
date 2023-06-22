@@ -163,7 +163,12 @@ class ClientList(APIView):
         response = json.dumps(data)
         return Response(json.loads(response))
 
-#class ClientAPI(viewsets.ModelViewSet):
+class ClientAPI(viewsets.ModelViewSet):
+
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+
 
 
 

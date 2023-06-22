@@ -28,11 +28,20 @@ class DataSerializer(serializers.ModelSerializer):
 
 class TableSerializer(serializers.ModelSerializer):
 
+    def sum(self, object):
+        sum = 0
+        for i in getattr(object, 'tabledata_set').all().values():
+            if type(i['data']) == float:
+                sum += i['data']
+            else:
+                pass
+        return sum
+
     clientSurname = serializers.PrimaryKeyRelatedField(read_only=True, source='client.surname')
     clientName = serializers.PrimaryKeyRelatedField(read_only=True, source='client.name')
-    #operator_name = serializers.PrimaryKeyRelatedField(read_only=True, source= 'operator.username')
-    #operator_surname = serializers.PrimaryKeyRelatedField(read_only=True, source= 'operator.last_name')
     tabledata_set = DataSerializer(many=True, read_only=True)
+    Sum = serializers.SerializerMethodField('sum')
+
 
 
     class Meta:

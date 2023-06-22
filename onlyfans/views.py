@@ -305,11 +305,27 @@ class TableView(viewsets.ModelViewSet):
 
         user_group = request.user.groups.all()
 
+
+        # print(dir(OnlyFansTable.objects.prefetch_related('tabledata_set').values('tabledata')))
+        # print(OnlyFansTable.objects.prefetch_related('tabledata_set').values('tabledata').all())
+
+
+        def get_total_sum():
+            sum = 0
+            for i in OnlyFansTable.objects.prefetch_related('tabledata_set').values('tabledata').all():
+                if type(i['tabledata']) == int:
+                    sum += i['tabledata']
+                else:
+                    pass
+            return sum
+
+
+
         if request.user.is_staff:
             month = request.query_params['month']
             table_list = OnlyFansTable.objects.prefetch_related('tabledata_set').filter(date=f'2023-{month}-01')
             data = json.dumps(serializer_class(table_list, many=True).data)
-            return Response(json.loads(data))
+            get_total_sum()
 
         if user_group.filter(name='Operator'):
             table_list = OnlyFansTable.objects.prefetch_related('tabledata_set').filter(operator=int(request.user.pk),
