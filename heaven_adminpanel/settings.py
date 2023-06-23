@@ -13,9 +13,9 @@ import os
 from pathlib import Path
 from datetime import timedelta
 
-# import dj_database_url
-# from dj_database_url import *
-# from django.conf.global_settings import DATABASES
+import dj_database_url
+from dj_database_url import *
+from django.conf.global_settings import DATABASES
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-8ub6nh30a+64a1wf$#gv%9xetqm$h546po5@8o)qo(vu03cwn_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['heavensite.herokuapp.com']
+ALLOWED_HOSTS = ['heavensite.herokuapp.com']
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
@@ -97,19 +97,19 @@ WSGI_APPLICATION = 'heaven_adminpanel.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heaven',
-        'USER': 'alexey',
-        'PASSWORD': 'Marcus1146',
-        'PORT': '3306',
-    }
-}
-
-#DATABASES['default'] = dj_database_url.config(
-#    default='mysql://bfb7351ed66c84:511e9413@eu-cdbr-west-03.cleardb.net/heroku_41e9a6289d2f94b',
-#)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'heaven',
+#         'USER': 'alexey',
+#         'PASSWORD': 'Marcus1146',
+#         'PORT': '3306',
+#     }
+# }
+#
+DATABASES['default'] = dj_database_url.config(
+   default='mysql://bfb7351ed66c84:511e9413@eu-cdbr-west-03.cleardb.net/heroku_41e9a6289d2f94b',
+)
 
 DATE_INPUT_FORMATS = ['%m-%d-%Y']
 
