@@ -18,5 +18,5 @@ urlpatterns = [
     path('permissions/', PermissionList.as_view(), name='permission_list'),
     path('registration/', include('rest_registration.api.urls')),
     path('userinfo', UserAndClientInfo.as_view(), name='userandclient'),
-    path('client_list', ClientList.as_view())
+    path('client_list/', ClientList.as_view())
 ]
